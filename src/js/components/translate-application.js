@@ -18,11 +18,35 @@ template.innerHTML = `
       align-items: center;
       justify-content: center;
       height: 100vh; /* This ensures the component takes up the full viewport height */
+      font-family: 'Verdana', sans-serif; 
+      font-size: 24px;
+    }
+
+    /* Apply the font style to all descendants */
+    * {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .container {
+      background-color: #3aa1f5;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    #name-translated {
+      font-size: 36px;
+      font-weight: bold;
     }
   </style>
-  <name-form></name-form>
-  <p id="nameGreeting"></p>
-  <all-language-translator></all-language-translator>
+  <div class="container">
+    <name-form></name-form>
+    <p id="name-greeting"></p>
+    <p id="name-translated"></p>
+    <all-language-translator></all-language-translator>
+  </div>
 `
 customElements.define('translate-application',
   /**
@@ -66,9 +90,6 @@ customElements.define('translate-application',
      * TODO: add description.
      */
     #translateName () {
-      // Write a greeting to the user
-      this.shadowRoot.querySelector('#nameGreeting').textContent = `Hej ${this.#name}!`
-
       // Set the attribute to the name to translate
       this.#allLanguageTranslator.setAttribute('translate-string', this.#name)
     }
@@ -78,7 +99,8 @@ customElements.define('translate-application',
      */
     #showTranslation () {
       // Show the translated name
-      this.shadowRoot.querySelector('#nameGreeting').textContent = `${this.#name} på all-språket är ${this.#translatedName}`
+      this.shadowRoot.querySelector('#name-greeting').textContent = `${this.#name} på all-språket är:`
+      this.shadowRoot.querySelector('#name-translated').textContent = this.#translatedName
     }
   }
 )

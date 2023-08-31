@@ -9,12 +9,18 @@
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
-    
+    .container {
+      font-family: Verdana, sans-serif;
+    }
+
+    .name-input, .submit-btn {
+      font-size: 24px; 
+    }
   </style>
   <div class="container">
     <form id="name-form">
       <input class="name-input" type="text" placeholder="Skriv ditt namn">
-      <button type="submit">OK</button>
+      <button class="submit-btn" type="submit">OK</button>
     </form>
   </div>
 `

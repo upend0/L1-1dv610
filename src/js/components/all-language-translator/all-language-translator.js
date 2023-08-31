@@ -50,7 +50,7 @@ customElements.define('all-language-translator',
     }
 
     /**
-     * TODO: add description.
+     * Function to translate a string.
      *
      * @param {string} stringToTranslate - The string to translate.
      */
