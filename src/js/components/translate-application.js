@@ -40,6 +40,21 @@ template.innerHTML = `
       font-size: 36px;
       font-weight: bold;
     }
+
+    footer {
+      background-color: #3aa1f5;
+      font-size: 14px;
+      text-align: center;
+      padding: 5px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    footer a {
+      color: black;
+    }
   </style>
   <div class="container">
     <name-form></name-form>
@@ -47,6 +62,12 @@ template.innerHTML = `
     <p id="name-translated"></p>
     <all-language-translator></all-language-translator>
   </div>
+  <footer>
+    <p>Denna webbapplikation är skapad av Maria Fredriksson, för en uppgift i kursen 1DV610 vid Linnéuniversitetet.</p>
+    <p>Mer information om all-språket: 
+      <a href="https://sv.wikipedia.org/wiki/Allspr%C3%A5ket" target="_blank">Allspråket - Wikipedia</a>
+    </p>
+  </footer>
 `
 customElements.define('translate-application',
   /**
