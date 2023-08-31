@@ -23,6 +23,9 @@ customElements.define('translate-application',
    * Represents a translate-application element.
    */
   class extends HTMLElement {
+    #nameForm
+    #name
+
     /**
      * Creates an instance of the current type.
      */
@@ -30,6 +33,14 @@ customElements.define('translate-application',
       super()
 
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+
+      this.#nameForm = this.shadowRoot.querySelector('name-form')
+
+      // Listen for when a name has been submitted
+      this.#nameForm.addEventListener('nameOK', event => {
+        this.#name = event.detail
+        console.log(this.#name)
+      })
     }
   }
 )
