@@ -1,13 +1,13 @@
 /**
- * The translate-application web component module.
+ * The name-form web component module.
  *
  * @author Maria Fredriksson <mf223wk@student.lnu.se>
  * @version 1.0.0
  */
 
-import './name-form'
+// ** This is a template for creating a web component.
 
-console.log('Hi from translate-application!')
+console.log('Hi from name-form!')
 
 // Create a template
 const template = document.createElement('template')
@@ -15,12 +15,11 @@ template.innerHTML = `
   <style>
     
   </style>
-  <p>Hi from translate-application!</p>
-  <name-form></name-form>
+  <p>Hi from name-form!</p>
 `
-customElements.define('translate-application',
+customElements.define('name-form',
   /**
-   * Represents a translate-application element.
+   * Represents a name-form element.
    */
   class extends HTMLElement {
     /**
