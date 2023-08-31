@@ -5,15 +5,12 @@
  * @version 1.0.0
  */
 
-console.log('Hi from all-language-translator!')
-
 // Create a template
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
     
   </style>
-  <p>Hi from all-language-translator!</p>
 `
 customElements.define('all-language-translator',
   /**
@@ -58,13 +55,39 @@ customElements.define('all-language-translator',
      * @param {string} stringToTranslate - The string to translate.
      */
     #translateString (stringToTranslate) {
-      console.log('stringToTranslate: ', stringToTranslate)
+      // Split the input string into words
+      const words = stringToTranslate.split(' ')
 
-      // ^^ Just test something. Remove later.
-      const translatedString = stringToTranslate.split('').reverse().join('')
+      // Translate each word and join them back into a sentence
+      const translatedWords = words.map(word => this.#translateWord(word))
+      const translatedString = translatedWords.join(' ').toLocaleLowerCase()
 
       // Dispatch an event with the translated string
       this.dispatchEvent(new window.CustomEvent('translatedToAll', { bubbles: true, detail: translatedString }))
+    }
+
+    /**
+     * Function to translate a single word.
+     *
+     * @param {string} word - The word to translate.
+     * @returns {string} The translated word.
+     */
+    #translateWord (word) {
+      let index = 0
+      while (index < word.length && !this.#isVowel(word[index])) {
+        index++
+      }
+      return word.slice(index) + word.slice(0, index) + 'all'
+    }
+
+    /**
+     * Function to check if a character is a vowel.
+     *
+     * @param {char} char - The character to check.
+     * @returns {boolean} True if the character is a vowel, otherwise false.
+     */
+    #isVowel (char) {
+      return ['a', 'e', 'i', 'o', 'u', 'y', 'å', 'ä', 'ö'].includes(char.toLowerCase())
     }
   }
 )

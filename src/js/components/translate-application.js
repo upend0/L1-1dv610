@@ -8,15 +8,18 @@
 import './name-form'
 import './all-language-translator'
 
-console.log('Hi from translate-application!')
-
 // Create a template
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
-    
+    :host {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* This ensures the component takes up the full viewport height */
+    }
   </style>
-  <p>Hi from translate-application!</p>
   <name-form></name-form>
   <p id="nameGreeting"></p>
   <all-language-translator></all-language-translator>
