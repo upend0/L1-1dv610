@@ -6,6 +6,7 @@
  */
 
 import './name-form'
+import './all-language-translator'
 
 console.log('Hi from translate-application!')
 
@@ -17,6 +18,7 @@ template.innerHTML = `
   </style>
   <p>Hi from translate-application!</p>
   <name-form></name-form>
+  <p id="nameGreeting"></p>
 `
 customElements.define('translate-application',
   /**
@@ -39,7 +41,12 @@ customElements.define('translate-application',
       // Listen for when a name has been submitted
       this.#nameForm.addEventListener('nameOK', event => {
         this.#name = event.detail
+
+        // TODO: do something else
         console.log(this.#name)
+
+        // Write a greeting to the user
+        this.shadowRoot.querySelector('#nameGreeting').textContent = `Hej ${this.#name}!`
       })
     }
   }
