@@ -19,6 +19,7 @@ template.innerHTML = `
   <p>Hi from translate-application!</p>
   <name-form></name-form>
   <p id="nameGreeting"></p>
+  <all-language-translator></all-language-translator>
 `
 customElements.define('translate-application',
   /**
@@ -26,7 +27,9 @@ customElements.define('translate-application',
    */
   class extends HTMLElement {
     #nameForm
+    #allLanguageTranslator
     #name
+    #translatedName
 
     /**
      * Creates an instance of the current type.
@@ -37,17 +40,42 @@ customElements.define('translate-application',
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
       this.#nameForm = this.shadowRoot.querySelector('name-form')
+      this.#allLanguageTranslator = this.shadowRoot.querySelector('all-language-translator')
 
       // Listen for when a name has been submitted
       this.#nameForm.addEventListener('nameOK', event => {
         this.#name = event.detail
 
-        // TODO: do something else
-        console.log(this.#name)
-
-        // Write a greeting to the user
-        this.shadowRoot.querySelector('#nameGreeting').textContent = `Hej ${this.#name}!`
+        // Translate the name
+        this.#translateName()
       })
+
+      // Listen for when the name has been translated
+      this.#allLanguageTranslator.addEventListener('translatedToAll', event => {
+        this.#translatedName = event.detail
+
+        // Show the translated name
+        this.#showTranslation()
+      })
+    }
+
+    /**
+     * TODO: add description.
+     */
+    #translateName () {
+      // Write a greeting to the user
+      this.shadowRoot.querySelector('#nameGreeting').textContent = `Hej ${this.#name}!`
+
+      // Set the attribute to the name to translate
+      this.#allLanguageTranslator.setAttribute('translate-string', this.#name)
+    }
+
+    /**
+     * TODO: add description.
+     */
+    #showTranslation () {
+      // Show the translated name
+      this.shadowRoot.querySelector('#nameGreeting').textContent = `${this.#name} på all-språket är ${this.#translatedName}`
     }
   }
 )
