@@ -22,6 +22,7 @@ template.innerHTML = `
       <input class="name-input" type="text" placeholder="Skriv ditt namn">
       <button class="submit-btn" type="submit">OK</button>
     </form>
+    <p id="error-container"></p>
   </div>
 `
 customElements.define('name-form',
@@ -31,6 +32,7 @@ customElements.define('name-form',
   class extends HTMLElement {
     #nameForm
     #name
+    #errorContainer
 
     /**
      * Creates an instance of the current type.
@@ -41,6 +43,7 @@ customElements.define('name-form',
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
       this.#nameForm = this.shadowRoot.querySelector('#name-form')
+      this.#errorContainer = this.shadowRoot.querySelector('#error-container')
 
       // Sets the focus on the input field from the start
       this.#nameForm.querySelector('.name-input').focus()
@@ -59,15 +62,37 @@ customElements.define('name-form',
       event.preventDefault()
 
       // Get the name from the input field
-      this.#name = this.#nameForm.querySelector('.name-input').value
+      this.#name = this.#nameForm.querySelector('.name-input').value.trim()
 
       // TODO: add felhantering
+
+      if (this.#name === '') {
+        this.#displayError('Skriv in ett namn.')
+        return
+      }
+
+      // Check if the input contains only letters, spaces, and Swedish special characters
+      if (!/^[A-Za-zåäöÅÄÖ\s]+$/.test(this.#name)) {
+        this.#displayError('Endast svenska bokstäver, tyvärr.')
+        return
+      }
+
+      // Clear any error messages
+      this.#clearError()
 
       // Dispatch an event with the name
       this.dispatchEvent(new window.CustomEvent('nameOK', { bubbles: true, detail: this.#name }))
 
       // Reset the form
       this.#nameForm.reset()
+    }
+
+    #displayError (message) {
+      this.#errorContainer.textContent = message
+    }
+
+    #clearError () {
+      this.#errorContainer.textContent = ''
     }
   }
 )
