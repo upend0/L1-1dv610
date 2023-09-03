@@ -53,7 +53,7 @@ customElements.define('name-form',
     }
 
     /**
-     * TODO: add description.
+     * Takes the name from the input field, checks for errors, and dispatches an event with the name.
      *
      * @param {Event} event - The event object.
      */
@@ -63,8 +63,6 @@ customElements.define('name-form',
 
       // Get the name from the input field
       this.#name = this.#nameForm.querySelector('.name-input').value.trim()
-
-      // TODO: add felhantering
 
       if (this.#name === '') {
         this.#displayError('Skriv in ett namn.')
@@ -78,7 +76,7 @@ customElements.define('name-form',
       }
 
       // Clear any error messages
-      this.#clearError()
+      this.#errorContainer.textContent = ''
 
       // Dispatch an event with the name
       this.dispatchEvent(new window.CustomEvent('nameOK', { bubbles: true, detail: this.#name }))
@@ -87,12 +85,19 @@ customElements.define('name-form',
       this.#nameForm.reset()
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param {string} message - The error message to display.
+     */
     #displayError (message) {
       this.#errorContainer.textContent = message
-    }
 
-    #clearError () {
-      this.#errorContainer.textContent = ''
+      // Dispatch an event that the name was not OK
+      this.dispatchEvent(new window.CustomEvent('nameNotOK', { bubbles: true }))
+
+      // Reset the form
+      this.#nameForm.reset()
     }
   }
 )

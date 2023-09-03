@@ -105,10 +105,17 @@ customElements.define('translate-application',
         // Show the translated name
         this.#showTranslation()
       })
+
+      // Listen for when an entered name is not OK
+      this.#nameForm.addEventListener('nameNotOK', event => {
+        // Delete the text content of the translated name and the name greeting
+        this.shadowRoot.querySelector('#name-greeting').textContent = ''
+        this.shadowRoot.querySelector('#name-translated').textContent = ''
+      })
     }
 
     /**
-     * TODO: add description.
+     * Sets the attribute to the name to translate, which will trigger the translation in the all-language-translator component.
      */
     #translateName () {
       // Set the attribute to the name to translate
@@ -116,7 +123,7 @@ customElements.define('translate-application',
     }
 
     /**
-     * TODO: add description.
+     * Shows the translated name.
      */
     #showTranslation () {
       // Show the translated name
